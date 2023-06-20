@@ -64,6 +64,7 @@ if (isset($_POST['report_submit'])) {
     $remarks = sanitizeInput($_POST["remarks"], $conn);
 
     // Validation
+    $error_msg = '';
     $isValid = true;
     $errors = [];
 
@@ -121,7 +122,12 @@ if (isset($_POST['report_submit'])) {
          }
 
     }else{
-
+        
+        if(!empty($errors)){
+            foreach($errors as $error){
+                $error_msg .= $error."<br>";
+            }
+        }
     }
 }    
 
@@ -132,7 +138,7 @@ if (isset($_POST['report_submit'])) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student Report</title>
+    <title>Create Student Report</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
     <style type="text/css">
@@ -143,13 +149,26 @@ if (isset($_POST['report_submit'])) {
         .main_div {
             padding: 20px;
         }
+
+        .header{
+            padding: 30px 0;
+        }
     </style>
   </head>
   <body>
 
-    <div class="container shadow p-3 mb-5 bg-body-tertiary rounded">
-        <div class="main_div">
-            <h2>Student Report</h2>
+    <div class="container">
+        <div class="header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Create Student Report</h2>
+                </div>
+                <div class="col-md-6">
+                    <a href="index.php" class="btn btn-md btn-primary float-end">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded main_div">
 
             <form action="add_report.php" method="POST">
                 <div class="row g-3">
@@ -241,6 +260,11 @@ if (isset($_POST['report_submit'])) {
         var submit_msg = "<?=$submit_msg;?>";
           if(submit_msg != ''){
               alert(submit_msg);
+          }
+
+        var error_msg = "<?=$error_msg;?>";
+          if(error_msg != ''){
+              alert(error_msg);
           }
       })
     </script>
