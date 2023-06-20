@@ -40,8 +40,14 @@ $total = ($row['english_marks'] + $row['hindi_marks'] + $row['math_marks'] + $ro
     
     <div class="container">
         <div class="header">
-            <h2>Student Report</h2>
-            <a href="index.php" class="btn btn-md btn-success float-end">Go to Dashboard</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Student Report</h2>
+                </div>
+                <div class="col-md-6">
+                    <a href="index.php" class="btn btn-md btn-primary float-end">Go to Dashboard</a>
+                </div>
+            </div>
         </div>
         
         <div class="shadow p-3 mb-5 bg-body-tertiary rounded main_div">
