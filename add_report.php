@@ -63,96 +63,67 @@ if (isset($_POST['report_submit'])) {
     $geography_marks = sanitizeInput($_POST["geography_marks"], $conn);
     $remarks = sanitizeInput($_POST["remarks"], $conn);
 
-    $a="INSERT INTO report (student_id,first_name,last_name,batch_class,email,english_marks,hindi_marks,
-    math_marks,science_marks,history_marks,geography_marks,remarks) VALUES ('$student_id','$first_name',
-    '$last_name','$batch_class','$email','$english_marks','$hindi_marks',
-    '$math_marks','$science_marks','$history_marks','$geography_marks','$remarks')";
-
-    $sql=mysqli_query($conn,$a);
-     //echo $sql;
-
-     if($sql)
-     {
-          $submit_msg = 'Data inserted successfully..!';
-     }
-
-     else{
-          $submit_msg =  'Failed to insert Data. Error description: '. mysqli_error($conn);
-     }
-
-
-   }
     // Validation
     $isValid = true;
     $errors = [];
 
-    // if (!validateNumeric($studentId)) {
-    //     $isValid = false;
-    //     $errors[] = "Invalid student ID. Please enter a numeric value.";
-    // }
+    if (!validateNumeric($student_id)) {
+        $isValid = false;
+        $errors[] = "Invalid student ID. Please enter a numeric value.";
+    }
 
-    // if (!validateAlphabetic($firstName)) {
-    //     $isValid = false;
-    //     $errors[] = "Invalid first name. Please enter alphabets only.";
-    // }
+    if (!validateAlphabetic($first_name)) {
+        $isValid = false;
+        $errors[] = "Invalid first name. Please enter alphabets only.";
+    }
 
-    // if (!validateAlphabetic($lastName)) {
-    //     $isValid = false;
-    //     $errors[] = "Invalid last name. Please enter alphabets only.";
-    // }
+    if (!validateAlphabetic($last_name)) {
+        $isValid = false;
+        $errors[] = "Invalid last name. Please enter alphabets only.";
+    }
 
-    // if (empty($batchClass)) {
-    //     $isValid = false;
-    //     $errors[] = "Batch/Class cannot be empty.";
-    // }
+    if (empty($batch_class)) {
+        $isValid = false;
+        $errors[] = "Batch/Class cannot be empty.";
+    }
 
-    // if (!validateEmail($email)) {
-    //     $isValid = false;
-    //     $errors[] = "Invalid email address.";
-    // }
+    if (!validateEmail($email)) {
+        $isValid = false;
+        $errors[] = "Invalid email address.";
+    }
 
-    // if (!validateDecimal($englishMarks) || !validateDecimal($hindiMarks) || !validateDecimal($mathMarks) || !validateDecimal($scienceMarks) || !validateDecimal($historyMarks) || !validateDecimal($geographyMarks)) {
-    //     $isValid = false;
-    //     $errors[] = "Invalid marks entered. Please enter numeric values.";
-    // }
+    if (!validateDecimal($english_marks) || !validateDecimal($hindi_marks) || !validateDecimal($math_marks) || !validateDecimal($science_marks) || !validateDecimal($history_marks) || !validateDecimal($geography_marks)) {
+        $isValid = false;
+        $errors[] = "Invalid marks entered. Please enter numeric values.";
+    }
 
-    // if ($isValid) {
+    if ($isValid) {
         // Calculate total marks and average
-        // $totalMarks = $englishMarks + $hindiMarks + $mathMarks + $scienceMarks + $historyMarks + $geographyMarks;
-        // $averageMarks = $totalMarks / 6;
- // $grade = calculateGrade($averageMarks);
-        // Generate grade based on average marks
-       
+        $totalMarks = $english_marks + $hindi_marks + $math_marks + $science_marks + $history_marks + $geography_marks;
+        $averageMarks = $totalMarks / 6;
+        $grade = calculateGrade($averageMarks);
 
-        // Display the student report
-        // echo "<h2>Student Report</h2>";
-        // echo "<p><strong>Student ID:</strong> $studentId</p>";
-        // echo "<p><strong>Name:</strong> $firstName $lastName</p>";
-        // echo "<p><strong>Batch/Class:</strong> $batchClass</p>";
-        // echo "<p><strong>Email:</strong> $email</p>";
-        // echo "<p><strong>Marks:</strong></p>";
-        // echo "<ul>";
-        // echo "<li>English: $englishMarks</li>";
-        // echo "<li>Hindi: $hindiMarks</li>";
-        // echo "<li>Math: $mathMarks</li>";
-        // echo "<li>Science: $scienceMarks</li>";
-        // echo "<li>History: $historyMarks</li>";
-        // echo "<li>Geography: $geographyMarks</li>";
-        // echo "</ul>";
-        // echo "<p><strong>Total Marks:</strong> $totalMarks</p>";
-        // echo "<p><strong>Average Marks:</strong> $averageMarks</p>";
-        // echo "<p><strong>Grade:</strong> $grade</p>";
-        // echo "<p><strong>Remarks:</strong> $remarks</p>";
-    // } else {
-        // Display errors
-        // echo "<h2>Error</h2>";
-        // echo "<ul>";
-        // foreach ($errors as $error) {
-        //     echo "<li>$error</li>";
-        // }
-        // echo "</ul>";
-    // }
+        $a = "INSERT INTO report (student_id,first_name,last_name,batch_class,email,english_marks,hindi_marks,
+        math_marks,science_marks,history_marks,geography_marks,remarks,grade) VALUES ('$student_id','$first_name',
+        '$last_name','$batch_class','$email','$english_marks','$hindi_marks',
+        '$math_marks','$science_marks','$history_marks','$geography_marks','$remarks','$grade')";
 
+        $sql=mysqli_query($conn,$a);
+         //echo $sql;
+
+         if($sql)
+         {
+              $submit_msg = 'Data inserted successfully..!';
+         }
+
+         else{
+              $submit_msg =  'Failed to insert Data. Error description: '. mysqli_error($conn);
+         }
+
+    }else{
+
+    }
+}    
 
 ?>
 
@@ -180,7 +151,7 @@ if (isset($_POST['report_submit'])) {
         <div class="main_div">
             <h2>Student Report</h2>
 
-            <form action="report.php" method="POST">
+            <form action="add_report.php" method="POST">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="student_id" class="col-sm-2 col-form-label">Student ID:</label>
