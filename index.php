@@ -32,8 +32,14 @@ $result = mysqli_query($conn, $query);
     
     <div class="container">
         <div class="header">
-            <h2>Student Report Dashboard</h2>
-            <a href="add_report.php" class="btn btn-md btn-success float-end">Create New Report</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Student Report Dashboard</h2>
+                </div>
+                <div class="col-md-6">
+                    <a href="add_report.php" class="btn btn-md btn-primary float-end">Create New Report</a>
+                </div>
+            </div>
         </div>
         
         <div class="shadow p-3 mb-5 bg-body-tertiary rounded main_div">
@@ -61,7 +67,7 @@ $result = mysqli_query($conn, $query);
                           <td><?=$row['first_name'];?></td>
                           <td><?=$row['last_name'];?></td>
                           <td><?=$row['email'];?></td>
-                          <td><a data-id=""<?=$row['id'];?> class="btn btn-sm btn-primary" href="view_report.php?record=<?=$row['id'];?>">View Report</td>
+                          <td><a data-id=""<?=$row['id'];?> class="btn btn-sm btn-success" href="view_report.php?record=<?=$row['id'];?>">View Report</td>
                         </tr>
                       <?php $inc++; }
                     }
