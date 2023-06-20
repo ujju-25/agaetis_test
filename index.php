@@ -2,11 +2,8 @@
 
 include_once('connection.php');
 
-    $query="SELECT * FROM report";
-
-    $sql=mysqli_query($conn,$query);
-
-    $result = mysqli_query($conn, $sql);
+$query="SELECT * FROM report";
+$result = mysqli_query($conn, $query);
 ?>
 
 <!doctype html>
@@ -25,36 +22,48 @@ include_once('connection.php');
         .main_div {
             padding: 20px;
         }
+
+        .header{
+            padding: 30px 0;
+        }
     </style>
   </head>
   <body>
-
-    <div class="container shadow p-3 mb-5 bg-body-tertiary rounded">
-        <div class="main_div">
+    
+    <div class="container">
+        <div class="header">
             <h2>Student Report Dashboard</h2>
-
+            <a href="add_report.php" class="btn btn-md btn-success float-end">Create New Report</a>
+        </div>
+        
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded main_div">
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Studnet ID</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
+                    $inc = 1;
                     if (mysqli_num_rows($result) > 0) {
                       // output data of each row
                       while($row = mysqli_fetch_assoc($result)) { ?>
 
                         <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
+                          <th scope="row"><?=$inc?></th>
+                          <th><?=$row['student_id'];?></th>
+                          <td><?=$row['first_name'];?></td>
+                          <td><?=$row['last_name'];?></td>
+                          <td><?=$row['email'];?></td>
+                          <td><a data-id=""<?=$row['id'];?> class="btn btn-sm btn-primary" href="view_report.php?record=<?=$row['id'];?>">View Report</td>
                         </tr>
-                      <?php }
+                      <?php $inc++; }
                     }
                 ?>
               </tbody>
